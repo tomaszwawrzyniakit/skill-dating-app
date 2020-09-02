@@ -1,0 +1,10 @@
+org: marekmatczak79
+app: skill-dating-app
+component: website
+name: frontend
+
+inputs:
+  src:
+    src: ../../
+    hook: nx build skill-dating-app-frontend --configuration=production
+    dist: dist/skill-dating-app-frontend

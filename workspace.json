@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "projects": {
+    "skill-dating-app-backend": {
+      "root": "apps/skill-dating-app-backend",
+      "sourceRoot": "apps/skill-dating-app-backend/src",
+      "projectType": "application",
+      "prefix": "skill-dating-app-backend",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "webpackConfig": "webpack.config.js",
+            "outputPath": "dist/apps/skill-dating-app-backend",
+            "main": "apps/skill-dating-app-backend/src/main.ts",
+            "tsConfig": "apps/skill-dating-app-backend/tsconfig.app.json",
+            "assets": ["apps/skill-dating-app-backend/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/skill-dating-app-backend/src/environments/environment.ts",
+                  "with": "apps/skill-dating-app-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "skill-dating-app-backend:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/skill-dating-app-backend/tsconfig.app.json",
+              "apps/skill-dating-app-backend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/skill-dating-app-backend/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/skill-dating-app-backend/jest.config.js",
+            "tsConfig": "apps/skill-dating-app-backend/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "skill-dating-app-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/skill-dating-app-frontend",
+      "sourceRoot": "apps/skill-dating-app-frontend/src",
+      "prefix": "less-code-challenge",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/skill-dating-app-frontend",
+            "index": "apps/skill-dating-app-frontend/src/index.html",
+            "main": "apps/skill-dating-app-frontend/src/main.ts",
+            "polyfills": "apps/skill-dating-app-frontend/src/polyfills.ts",
+            "tsConfig": "apps/skill-dating-app-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/skill-dating-app-frontend/src/favicon.ico",
+              "apps/skill-dating-app-frontend/src/assets"
+            ],
+            "styles": ["apps/skill-dating-app-frontend/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/skill-dating-app-frontend/src/environments/environment.ts",
+                  "with": "apps/skill-dating-app-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "skill-dating-app-frontend:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "skill-dating-app-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "skill-dating-app-frontend:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/skill-dating-app-frontend/tsconfig.app.json",
+              "apps/skill-dating-app-frontend/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/skill-dating-app-frontend/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/skill-dating-app-frontend/jest.config.js",
+            "tsConfig": "apps/skill-dating-app-frontend/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/skill-dating-app-frontend/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "skill-dating-app-frontend-e2e": {
+      "root": "apps/skill-dating-app-frontend-e2e",
+      "sourceRoot": "apps/skill-dating-app-frontend-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/skill-dating-app-frontend-e2e/cypress.json",
+            "tsConfig": "apps/skill-dating-app-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "skill-dating-app-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "skill-dating-app-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/skill-dating-app-frontend-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/skill-dating-app-frontend-e2e/**/*"
+            ]
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/api-interfaces/tsconfig.lib.json",
+              "libs/api-interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/api-interfaces/jest.config.js",
+            "tsConfig": "libs/api-interfaces/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/express"
+  },
+  "defaultProject": "skill-dating-app-backend",
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  }
+}

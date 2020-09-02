@@ -1,0 +1,39 @@
+{
+  "npmScope": "less-code-challenge",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "skill-dating-app-backend": {
+      "tags": []
+    },
+    "skill-dating-app-frontend": {
+      "tags": []
+    },
+    "skill-dating-app-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["skill-dating-app-frontend"]
+    },
+    "api-interfaces": {
+      "tags": []
+    }
+  }
+}
