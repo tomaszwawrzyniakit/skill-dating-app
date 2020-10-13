@@ -1,43 +1,54 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
-import {HomeDialogComponent} from './user-profile/home-dialog/home-dialog.component';
-import {UserProfileSearchDialogComponent} from './user-profile/user-profile-search-dialog/user-profile-search-dialog.component';
-import {UserProfileModule} from './user-profile/user-profile.module';
-import {SharedModule} from './shared/shared.module';
-import {AfterSignInCallbackComponent} from './shared/security/after-sign-in-callback.component';
-import {AuthGuard} from './shared/security/auth.guard';
+import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { HomeDialogComponent } from './user-profile/home-dialog/home-dialog.component';
+import { UserProfileSearchDialogComponent } from './user-profile/user-profile-search-dialog/user-profile-search-dialog.component';
+import { UserProfileModule } from './user-profile/user-profile.module';
+import { SharedModule } from './shared/shared.module';
+import { AfterSignInCallbackComponent } from './shared/security/after-sign-in-callback.component';
+import { AuthGuard } from './shared/security/auth.guard';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { RedirectToHomeGuard } from './shared/security/redirect-to-home.guard';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: HomeDialogComponent
-      },
-      {
-        path: 'after-sign-in-callback',
-        component: AfterSignInCallbackComponent
-      },
-      {
-        path: 'profiles',
-        component: UserProfileSearchDialogComponent,
-        canActivate: [AuthGuard]
-      }
-    ], {enableTracing: true}),
+    RouterModule.forRoot(
+      [
+        {
+          path: '',
+          component: LandingPageComponent,
+          canActivate: [RedirectToHomeGuard],
+        },
+        {
+          path: 'home',
+          component: HomeDialogComponent,
+        },
+        {
+          path: 'settings',
+          component: HomeDialogComponent,
+        },
+        {
+          path: 'after-sign-in-callback',
+          component: AfterSignInCallbackComponent,
+        },
+        {
+          path: 'profiles',
+          component: UserProfileSearchDialogComponent,
+          canActivate: [AuthGuard],
+        },
+      ],
+      { enableTracing: true }
+    ),
     SharedModule.forRoot(),
-    UserProfileModule
+    UserProfileModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

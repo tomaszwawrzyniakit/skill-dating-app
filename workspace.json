@@ -81,11 +81,14 @@
             "polyfills": "apps/skill-dating-app-frontend/src/polyfills.ts",
             "tsConfig": "apps/skill-dating-app-frontend/tsconfig.app.json",
             "aot": true,
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/skill-dating-app-frontend/src/styles"]
+            },
             "assets": [
               "apps/skill-dating-app-frontend/src/favicon.ico",
               "apps/skill-dating-app-frontend/src/assets"
             ],
-            "styles": ["apps/skill-dating-app-frontend/src/styles.scss"],
+            "styles": ["apps/skill-dating-app-frontend/src/styles/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -223,7 +226,7 @@
   "cli": {
     "defaultCollection": "@nrwl/express"
   },
-  "defaultProject": "skill-dating-app-backend",
+  "defaultProject": "skill-dating-app-frontend",
   "schematics": {
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",
