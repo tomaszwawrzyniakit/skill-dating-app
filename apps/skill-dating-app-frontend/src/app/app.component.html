@@ -6,16 +6,14 @@
   >
   </object>
 
-  <div
+  <div *ngIf="userInitial$ | async as initial" (click)="logOut()">
+    <span>Logout</span>
+  </div>
+  <ui-avatar
     *ngIf="userInitial$ | async as initial"
-    class="avatar"
-    (click)="logOut()"
-  >
-    <span class="avatar__text">Logout</span>
-  </div>
-  <div *ngIf="userInitial$ | async as initial" class="avatar">
-    <span class="avatar__text">{{ initial }}</span>
-  </div>
+    [initial]="initial"
+    (click)="goToProfile()"
+  ></ui-avatar>
 </nav>
 <div class="content">
   <router-outlet></router-outlet>
@@ -26,7 +24,7 @@
   </div>
 </footer>
 <ui-overlay
-  *ngIf="overlayShown"
+  *ngIf="overlayShown | async"
   (configureLater)="configureLater()"
   (configureProfile)="goToConfigureProfile()"
 ></ui-overlay>

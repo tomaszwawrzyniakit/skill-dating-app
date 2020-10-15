@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SecurityService } from './shared/security/security.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  overlayShown = true;
+  overlayShown = this.security.username$.pipe(map((email) => !email));
   token$: Observable<string> = this.security.username$;
   userInitial$ = this.token$.pipe(
-    filter(email=>!!email),
+    filter((email) => !!email),
     map((email: string) => {
       const [[firstInitial], [secondInitial]] = email.toUpperCase().split('.');
 
@@ -33,10 +33,10 @@ export class AppComponent {
     this.security.signOut();
   }
   configureLater() {
-    this.overlayShown = false;
+    this.overlayShown = of(false);
   }
 
-  goToConfigureProfile() {
-    this.router.navigate(['settings']);
+  goToProfile() {
+    this.router.navigate(['profile']);
   }
 }

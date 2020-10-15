@@ -1,5 +1,5 @@
 export interface SkillTo {
-    id: string;
-    name?: string;
-  }
-  
+  id: string;
+  name?: string;
+  popularity: number;
+}

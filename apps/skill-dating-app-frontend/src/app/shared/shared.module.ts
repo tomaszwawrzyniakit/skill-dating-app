@@ -9,14 +9,19 @@ import { AfterSignInCallbackComponent } from './security/after-sign-in-callback.
 import { NavigationComponent } from './navigation/navigation.component';
 import { OverlayComponent } from './overlay/overlay.component';
 
+import { InputComponent } from './forms/input/input.component';
+import { AvatarComponent } from './avatar/avatar.component';
+
+const exportedComponents = [
+  OverlayComponent,
+  NavigationComponent,
+  InputComponent,
+  AvatarComponent,
+];
 @NgModule({
-  declarations: [
-    AfterSignInCallbackComponent,
-    OverlayComponent,
-    NavigationComponent,
-  ],
+  declarations: [AfterSignInCallbackComponent, ...exportedComponents],
   imports: [CommonModule],
-  exports: [OverlayComponent, NavigationComponent],
+  exports: [...exportedComponents],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders<SharedModule> {
@@ -30,7 +35,7 @@ export class SharedModule {
           multi: true,
         },
         AuthGuard,
-        RedirectToHomeGuard
+        RedirectToHomeGuard,
       ],
     };
   }

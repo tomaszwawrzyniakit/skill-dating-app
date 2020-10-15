@@ -34,4 +34,11 @@
       }
     }
   }
+  @media (min-width: 900px) {
+    .overlay__content {
+      width: 900px!important;
+      margin: auto;
+    }
+  }
+  
 }
